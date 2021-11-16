@@ -1,9 +1,6 @@
 {
   "name": "cities-server-singular",
   "version": "1.0.0",
-  "engines": {
-    "node": "14.16.1"
-  },
   "description": "This is a temporary server to access world cities for singular platform MVP",
   "main": "index.js",
   "scripts": {
