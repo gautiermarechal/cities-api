@@ -1,4 +1,4 @@
-const cities = require("all-the-cities");
+// const cities = require("all-the-cities");
 const express = require("express");
 const cors = require("cors");
 
@@ -20,9 +20,9 @@ app.get("/", (req, res) => {
   res.json({ message: `Server is running on port ${port}` });
 });
 
-app.get("/all-cities", (req, res) => {
-  res.json({ cities });
-});
+// app.get("/all-cities", (req, res) => {
+//   res.json({ cities });
+// });
 
 module.exports = {
   path: "/cities",
