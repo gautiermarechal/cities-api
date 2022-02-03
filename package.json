@@ -1,7 +1,7 @@
 {
   "name": "cities-server-singular",
   "version": "1.0.0",
-  "description": "This is a temporary server to access world cities for singular platform MVP",
+  "description": "Access cities by country",
   "main": "app.js",
   "engines": {
     "node": "14.x"
@@ -13,8 +13,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "all-the-cities": "^3.1.0",
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "dotenv": "^14.3.2",
+    "express": "^4.17.1",
+    "mongodb": "^4.3.1"
   }
 }
