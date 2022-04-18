@@ -4,8 +4,9 @@ function getCitiesByCountryCode(req, res, db) {
   const pageNumber = parseFloat(req.query.page_number);
   const pageSize = parseFloat(req.query.page_size);
   const skip = pageSize * pageSize;
+  const pageSizeValidation = pageSize > 0 && pageSize <= 100;
 
-  if (pageNumber === 1) {
+  if (pageNumber === 1 && pageSizeValidation) {
     db.collection(CITIES_COLLECTION_NAME)
       .find({ country_code: req.params.countryCode })
       .limit(pageSize)
@@ -13,10 +14,12 @@ function getCitiesByCountryCode(req, res, db) {
         if (err) {
           throw new Error(err.message);
         } else {
-          res.status(200).json({ status: 200, data: result });
+          res
+            .status(200)
+            .json({ status: 200, numberOfItems: result.length, data: result });
         }
       });
-  } else if (pageNumber > 1) {
+  } else if (pageNumber > 1 && pageSizeValidation) {
     db.collection(CITIES_COLLECTION_NAME)
       .find({ country_code: req.params.countryCode })
       .skip(skip)
@@ -25,11 +28,13 @@ function getCitiesByCountryCode(req, res, db) {
         if (err) {
           throw new Error(err.message);
         } else {
-          res.status(200).json({ status: 200, data: result });
+          res
+            .status(200)
+            .json({ status: 200, numberOfItems: result.length, data: result });
         }
       });
   } else {
-    throw new Error("Wrong page number");
+    throw new Error("Wrong page number or page size");
   }
 }
 

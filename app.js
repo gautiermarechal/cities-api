@@ -1,16 +1,11 @@
 const express = require("express");
 const cors = require("cors");
+const { rateLimiterUsingThirdParty } = require("./middlewares/rateLimiter");
 //DB imports----------------------------------------
 const { resolve } = require("path");
 require("dotenv").config({ path: resolve(__dirname, ".env") });
-const { connectToDb } = require("./api/handlers/db");
 //-------------------------------------------------
 // HANDLERS imports -------------------------------
-const {
-  getCitiesByCountryCode,
-} = require("./api/handlers/cities/get/getCitiesByCountryCode");
-const getCitiesByName = require("./api/handlers/cities/get/getCitiesByName");
-const getCitiesByCoordinates = require("./api/handlers/cities/get/getCitiesByCoordinates");
 const rootRouter = require("./api/routes");
 //-------------------------------------------------
 // ROUTERS imports -----------------
@@ -18,6 +13,7 @@ const rootRouter = require("./api/routes");
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(rateLimiterUsingThirdParty);
 
 app.use(express.json());
 

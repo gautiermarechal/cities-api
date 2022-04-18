@@ -1,9 +1,9 @@
 const { CITIES_COLLECTION_NAME } = process.env;
 
-function getCitiesByName(req, res, db) {
+function getCitiesById(req, res, db) {
   db.collection(CITIES_COLLECTION_NAME)
-    .find({ name: { $regex: req.params.cityName, $options: "i" } })
-    .limit(10)
+    .find({ id: req.params.cityId.toString() })
+    .limit(1)
     .toArray((err, result) => {
       if (err) {
         throw new Error(err.message);
@@ -13,4 +13,4 @@ function getCitiesByName(req, res, db) {
     });
 }
 
-module.exports = getCitiesByName;
+module.exports = getCitiesById;

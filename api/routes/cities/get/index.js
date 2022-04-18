@@ -3,6 +3,7 @@ const getCitiesByCoordinates = require("../../../handlers/cities/get/getCitiesBy
 const {
   getCitiesByCountryCode,
 } = require("../../../handlers/cities/get/getCitiesByCountryCode");
+const getCitiesById = require("../../../handlers/cities/get/getCitiesById");
 const getCitiesByName = require("../../../handlers/cities/get/getCitiesByName");
 const { connectToDb } = require("../../../handlers/db");
 
@@ -36,6 +37,17 @@ citiesGetRouter.get("/cities/coordinates", async (req, res) => {
     const db = await connectToDb();
 
     getCitiesByCoordinates(req, res, db);
+  } catch (error) {
+    res.status(500).json({ status: 500, error: error.message });
+  }
+});
+
+// Get city by id
+citiesGetRouter.get("/cities/id/:cityId", async (req, res) => {
+  try {
+    const db = await connectToDb();
+
+    getCitiesById(req, res, db);
   } catch (error) {
     res.status(500).json({ status: 500, error: error.message });
   }
