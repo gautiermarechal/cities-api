@@ -13,7 +13,7 @@ const getCitiesByCountryCode = {
       content: {
         "application/json": {
           schema: {
-            $ref: "#/definitions/Cities",
+            $ref: "#/definitions/City",
           },
         },
       },
@@ -116,7 +116,7 @@ const getCitiesByCoordinates = {
 const getCityById = {
   tags: ["Cities"],
   description: "Returns city by its id.",
-  operationId: "getCitiesById",
+  operationId: "getCityById",
   security: [
     {
       bearerAuth: [],
@@ -139,7 +139,7 @@ const getCityById = {
       in: "path",
       name: "cityId",
       type: "integer",
-      description: "City id. (Try it out: 2979783)",
+      description: "City id. (Try it out: 2988507)",
     },
   ],
 };
