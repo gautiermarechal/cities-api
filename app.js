@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const { rateLimiterUsingThirdParty } = require("./middlewares/rateLimiter");
+const swaggerUi = require("swagger-ui-express");
+const { swaggerDocument } = require("./swagger");
 //DB imports----------------------------------------
 const { resolve } = require("path");
 require("dotenv").config({ path: resolve(__dirname, ".env") });
@@ -16,6 +18,8 @@ app.use(cors());
 app.use(rateLimiterUsingThirdParty);
 
 app.use(express.json());
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const port = process.env.PORT || 4000;
 
