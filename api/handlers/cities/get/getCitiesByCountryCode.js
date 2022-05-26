@@ -1,40 +1,40 @@
+const { pagination } = require("../../../../utils/paginate");
 const { CITIES_COLLECTION_NAME } = process.env;
 
 function getCitiesByCountryCode(req, res, db) {
-  const pageNumber = parseFloat(req.query.page_number);
-  const pageSize = parseFloat(req.query.page_size);
-  const skip = pageSize * pageSize;
-  const pageSizeValidation = pageSize > 0 && pageSize <= 100;
+  const {
+    pageNumber,
+    pageSize,
+    skip,
+    pageSizeValidation,
+    pageNumberValidation,
+  } = pagination(req);
 
-  if (pageNumber === 1 && pageSizeValidation) {
-    db.collection(CITIES_COLLECTION_NAME)
-      .find({ country_code: req.params.countryCode })
-      .limit(pageSize)
-      .toArray((err, result) => {
-        if (err) {
-          throw new Error(err.message);
-        } else {
-          res
-            .status(200)
-            .json({ status: 200, numberOfItems: result.length, data: result });
-        }
-      });
-  } else if (pageNumber > 1 && pageSizeValidation) {
-    db.collection(CITIES_COLLECTION_NAME)
-      .find({ country_code: req.params.countryCode })
-      .skip(skip)
-      .limit(pageSize)
-      .toArray((err, result) => {
-        if (err) {
-          throw new Error(err.message);
-        } else {
-          res
-            .status(200)
-            .json({ status: 200, numberOfItems: result.length, data: result });
-        }
-      });
-  } else {
-    throw new Error("Wrong page number or page size");
+  try {
+    if (pageNumberValidation && pageSizeValidation) {
+      db.collection(CITIES_COLLECTION_NAME)
+        .find({ country_code: req.params.countryCode })
+        .skip(skip)
+        .limit(pageSize)
+        .toArray((err, result) => {
+          if (err) {
+            throw new Error(err.message);
+          } else {
+            res.status(200).json({
+              status: 200,
+              numberOfItems: result.length,
+              pageNumber,
+              data: result,
+            });
+          }
+        });
+    } else {
+      throw new Error(
+        "Wrong page number or page size. Page number must be 1 or more. Page size must be between 1 and 100."
+      );
+    }
+  } catch (error) {
+    res.status(500).json({ status: 500, data: "error" });
   }
 }
 

@@ -5,6 +5,13 @@ const {
   getCityById,
 } = require("./openapi/cities.swagger");
 
+const {
+  getCountriesByName,
+  getCountriesByCode,
+  getCountriesByRegionCode,
+  getCountries,
+} = require("./openapi/countries.swagger");
+
 const swaggerDocument = {
   openapi: "4.4.0",
   swagger: "2.0",
@@ -86,6 +93,18 @@ const swaggerDocument = {
     "/cities/id/{cityId}": {
       get: getCityById,
     },
+    "/countries/name/{countryName}": {
+      get: getCountriesByName,
+    },
+    "/countries/code/{countryCode}": {
+      get: getCountriesByCode,
+    },
+    "/countries/region/{regionCode}": {
+      get: getCountriesByRegionCode,
+    },
+    "/countries": {
+      get: getCountries,
+    },
   },
   definitions: {
     City: {
@@ -119,6 +138,57 @@ const swaggerDocument = {
     Cities: {
       type: "array",
       $ref: "#/definitions/City",
+    },
+    Country: {
+      properties: {
+        name: {
+          type: "string",
+          description: "City name",
+        },
+        code: {
+          type: "string",
+          description: "Country code in ISO2 format",
+        },
+        capital: {
+          type: "string",
+          description: "Country capital",
+        },
+        region: {
+          type: "string",
+          description: "Region code",
+        },
+        currency: {
+          properties: {
+            code: {
+              type: "string",
+              description: "Currency code",
+            },
+            name: {
+              type: "string",
+            },
+            symbol: {
+              type: "string",
+            },
+          },
+        },
+        language: {
+          properties: {
+            code: {
+              type: "string",
+            },
+            name: {
+              type: "string",
+            },
+          },
+        },
+        flag: {
+          type: "string",
+        },
+      },
+    },
+    Countries: {
+      type: "array",
+      $ref: "#/definitions/Country",
     },
   },
 };

@@ -1,8 +1,7 @@
 const { pagination } = require("../../../../utils/paginate");
+const { COUNTRIES_COLLECTION_NAME } = process.env;
 
-const { CITIES_COLLECTION_NAME } = process.env;
-
-function getCitiesByName(req, res, db) {
+function getCountries(req, res, db) {
   const {
     pageNumber,
     pageSize,
@@ -13,16 +12,20 @@ function getCitiesByName(req, res, db) {
 
   try {
     if (pageNumberValidation && pageSizeValidation) {
-      db.collection(CITIES_COLLECTION_NAME)
-        .find({ name: { $regex: req.params.cityName, $options: "i" } })
+      db.collection(COUNTRIES_COLLECTION_NAME)
+        .find()
         .skip(skip)
+        .limit(pageSize)
         .toArray((err, result) => {
           if (err) {
             throw new Error(err.message);
           } else {
-            res
-              .status(200)
-              .json({ status: 200, pageNumber, pageSize, data: result });
+            res.status(200).json({
+              status: 200,
+              numberOfItems: result.length,
+              pageNumber,
+              data: result,
+            });
           }
         });
     } else {
@@ -35,4 +38,4 @@ function getCitiesByName(req, res, db) {
   }
 }
 
-module.exports = getCitiesByName;
+module.exports = { getCountries };

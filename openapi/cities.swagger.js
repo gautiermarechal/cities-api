@@ -28,18 +28,18 @@ const getCitiesByCountryCode = {
     },
     {
       in: "query",
-      name: "page_size",
+      name: "page_number",
       type: "integer",
+      minimum: 0,
       description:
-        "Pagination: Size of the array of cities you will receive. (Try it out: 10)",
+        "Pagination: The page number of the cities received. MIN: 0 (Try it out: 0)",
     },
     {
       in: "query",
-      name: "page_number",
+      name: "page_size",
       type: "integer",
-      minimum: 1,
       description:
-        "Pagination: The page number of the cities received.  (Try it out: 1)",
+        "Pagination: Size of the array of cities you will receive. MIN: 1, MAX:100 (Try it out: 10)",
     },
   ],
 };
@@ -72,6 +72,21 @@ const getCitiesByName = {
       name: "cityName",
       type: "string",
       description: "City name. (Try it out: Paris)",
+    },
+    {
+      in: "query",
+      name: "page_number",
+      type: "integer",
+      minimum: 0,
+      description:
+        "Pagination: The page number of the cities received.  MIN: 0 (Try it out: 0)",
+    },
+    {
+      in: "query",
+      name: "page_size",
+      type: "integer",
+      description:
+        "Pagination: Size of the array of cities you will receive. MIN: 1, MAX:100 (Try it out: 10)",
     },
   ],
 };
@@ -109,6 +124,21 @@ const getCitiesByCoordinates = {
       name: "lng",
       type: "float",
       description: "City longitude. (Try it out: 2.3522)",
+    },
+    {
+      in: "query",
+      name: "page_number",
+      type: "integer",
+      minimum: 0,
+      description:
+        "Pagination: The page number of the cities received.  MIN: 0 (Try it out: 0)",
+    },
+    {
+      in: "query",
+      name: "page_size",
+      type: "integer",
+      description:
+        "Pagination: Size of the array of cities you will receive. MIN: 1, MAX:100 (Try it out: 10)",
     },
   ],
 };
