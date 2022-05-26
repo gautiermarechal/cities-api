@@ -71,14 +71,16 @@ const swaggerDocument = {
     },
   ],
   components: {
-    schemas: {},
     securitySchemes: {
-      bearerAuth: {
-        type: "http",
-        scheme: "bearer",
-        bearerFormat: "JWT",
+      ApiKeyAuth: {
+        type: "apiKey",
+        in: "header",
+        name: "X-API-KEY",
       },
     },
+  },
+  security: {
+    ApiKeyAuth: [],
   },
   paths: {
     "/cities/country/{countryCode}": {

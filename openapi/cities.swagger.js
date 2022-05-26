@@ -2,11 +2,6 @@ const getCitiesByCountryCode = {
   tags: ["Cities"],
   description: "Returns cities from a country code. Result is paginated.",
   operationId: "getCitiesByCountryCode",
-  security: [
-    {
-      bearerAuth: [],
-    },
-  ],
   responses: {
     200: {
       description: "Cities by country code.",
@@ -17,6 +12,9 @@ const getCitiesByCountryCode = {
           },
         },
       },
+    },
+    401: {
+      description: "Unauthorized",
     },
   },
   parameters: [
@@ -49,11 +47,6 @@ const getCitiesByName = {
   description:
     "Returns cities from city name. Returns cities that include the city name you are searching for. You will receive a maximum of 10 cities.",
   operationId: "getCitiesByName",
-  security: [
-    {
-      bearerAuth: [],
-    },
-  ],
   responses: {
     200: {
       description: "Array of cities. Maximum length: 10.",
@@ -95,11 +88,6 @@ const getCitiesByCoordinates = {
   tags: ["Cities"],
   description: "Returns closest cities from coordinates entered.",
   operationId: "getCitiesByCoordinates",
-  security: [
-    {
-      bearerAuth: [],
-    },
-  ],
   responses: {
     200: {
       description: "Array of closest cities from coordinates.",
@@ -147,11 +135,6 @@ const getCityById = {
   tags: ["Cities"],
   description: "Returns city by its id.",
   operationId: "getCityById",
-  security: [
-    {
-      bearerAuth: [],
-    },
-  ],
   responses: {
     200: {
       description: "City by id.",

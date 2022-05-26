@@ -2,11 +2,6 @@ const getCountriesByName = {
   tags: ["Countries"],
   description: "Returns countries from a country name. Result is paginated.",
   operationId: "getCountriesByName",
-  security: [
-    {
-      bearerAuth: [],
-    },
-  ],
   responses: {
     200: {
       description: "Countries by country name.",
@@ -48,11 +43,6 @@ const getCountriesByCode = {
   tags: ["Countries"],
   description: "Returns countries from a country code.",
   operationId: "getCountriesByCode",
-  security: [
-    {
-      bearerAuth: [],
-    },
-  ],
   responses: {
     200: {
       description: "Countries by country code.",
@@ -79,11 +69,6 @@ const getCountriesByRegionCode = {
   tags: ["Countries"],
   description: "Returns countries from a region code.",
   operationId: "getCountriesByRegionCode",
-  security: [
-    {
-      bearerAuth: [],
-    },
-  ],
   responses: {
     200: {
       description: "Countries by region code.",
@@ -110,11 +95,6 @@ const getCountries = {
   tags: ["Countries"],
   description: "Returns paginated countries",
   operationId: "getCountries",
-  security: [
-    {
-      bearerAuth: [],
-    },
-  ],
   responses: {
     200: {
       description: "Paginated countries.",
