@@ -11,10 +11,11 @@ const {
   getCountriesByRegionCode,
   getCountries,
 } = require("./openapi/countries.swagger");
+const { login, logout } = require("./openapi/users.swagger");
 
 const swaggerDocument = {
-  openapi: "4.4.0",
-  swagger: "2.0",
+  openapi: "3.0.0",
+  visibility: "private",
   info: {
     version: "1.0.0",
     title: "World Cities API",
@@ -38,50 +39,6 @@ const swaggerDocument = {
   schemes: ["http"],
   consumes: ["application/json"],
   produces: ["application/json"],
-  servers: [
-    {
-      url: "http://localhost:{PORT}/{BASE_PATH}",
-      description: "The development API server",
-      variables: {
-        DB_URI: process.env.DB_URI,
-        DB_NAME: process.env.DB_NAME,
-        CITIES_COLLECTION_NAME: process.env.CITIES_COLLECTION_NAME,
-        USERS_COLLECTION_NAME: process.env.USERS_COLLECTION_NAME,
-        REFRESH_TOKEN_COLLECTION_NAME:
-          process.env.REFRESH_TOKEN_COLLECTION_NAME,
-        ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
-        REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET,
-        BASE_PATH: process.env.BASE_PATH,
-      },
-    },
-    {
-      url: "https://world-cities.herokuapp.com/{BASE_PATH}",
-      description: "The production API server",
-      variables: {
-        DB_URI: process.env.DB_URI,
-        DB_NAME: process.env.DB_NAME,
-        CITIES_COLLECTION_NAME: process.env.CITIES_COLLECTION_NAME,
-        USERS_COLLECTION_NAME: process.env.USERS_COLLECTION_NAME,
-        REFRESH_TOKEN_COLLECTION_NAME:
-          process.env.REFRESH_TOKEN_COLLECTION_NAME,
-        ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
-        REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET,
-        BASE_PATH: process.env.BASE_PATH,
-      },
-    },
-  ],
-  components: {
-    securitySchemes: {
-      ApiKeyAuth: {
-        type: "apiKey",
-        in: "header",
-        name: "X-API-KEY",
-      },
-    },
-  },
-  security: {
-    ApiKeyAuth: [],
-  },
   paths: {
     "/cities/country/{countryCode}": {
       get: getCitiesByCountryCode,
@@ -106,6 +63,12 @@ const swaggerDocument = {
     },
     "/countries": {
       get: getCountries,
+    },
+    "/users/login": {
+      post: login,
+    },
+    "/users/logout": {
+      post: logout,
     },
   },
   definitions: {
@@ -191,6 +154,16 @@ const swaggerDocument = {
     Countries: {
       type: "array",
       $ref: "#/definitions/Country",
+    },
+    User: {
+      properties: {
+        name: {
+          type: "string",
+        },
+        password: {
+          type: "string",
+        },
+      },
     },
   },
 };

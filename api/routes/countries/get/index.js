@@ -1,4 +1,5 @@
 const express = require("express");
+const { authorization } = require("../../../../utils/authorization");
 const {
   getCountries,
 } = require("../../../handlers/countries/get/getCountries");
@@ -15,7 +16,7 @@ const { connectToDb } = require("../../../handlers/db");
 const countriesGetRouter = express.Router();
 
 // Get countries
-countriesGetRouter.get("/countries", async (req, res) => {
+countriesGetRouter.get("/countries", authorization, async (req, res) => {
   try {
     const db = await connectToDb();
 
@@ -26,36 +27,48 @@ countriesGetRouter.get("/countries", async (req, res) => {
 });
 
 // Get country by name
-countriesGetRouter.get("/countries/name/:countryName", async (req, res) => {
-  try {
-    const db = await connectToDb();
+countriesGetRouter.get(
+  "/countries/name/:countryName",
+  authorization,
+  async (req, res) => {
+    try {
+      const db = await connectToDb();
 
-    getCountriesByName(req, res, db);
-  } catch (error) {
-    res.status(500).json({ status: 500, error: error.message });
+      getCountriesByName(req, res, db);
+    } catch (error) {
+      res.status(500).json({ status: 500, error: error.message });
+    }
   }
-});
+);
 
 // Get country by code
-countriesGetRouter.get("/countries/code/:countryCode", async (req, res) => {
-  try {
-    const db = await connectToDb();
+countriesGetRouter.get(
+  "/countries/code/:countryCode",
+  authorization,
+  async (req, res) => {
+    try {
+      const db = await connectToDb();
 
-    getCountriesByCode(req, res, db);
-  } catch (error) {
-    res.status(500).json({ status: 500, error: error.message });
+      getCountriesByCode(req, res, db);
+    } catch (error) {
+      res.status(500).json({ status: 500, error: error.message });
+    }
   }
-});
+);
 
 // Get country by code
-countriesGetRouter.get("/countries/region/:regionCode", async (req, res) => {
-  try {
-    const db = await connectToDb();
+countriesGetRouter.get(
+  "/countries/region/:regionCode",
+  authorization,
+  async (req, res) => {
+    try {
+      const db = await connectToDb();
 
-    getCountriesByRegionCode(req, res, db);
-  } catch (error) {
-    res.status(500).json({ status: 500, error: error.message });
+      getCountriesByRegionCode(req, res, db);
+    } catch (error) {
+      res.status(500).json({ status: 500, error: error.message });
+    }
   }
-});
+);
 
 module.exports = countriesGetRouter;

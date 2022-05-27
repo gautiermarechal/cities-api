@@ -60,7 +60,7 @@ const getCountriesByCode = {
       in: "path",
       name: "countryCode",
       type: "string",
-      description: "Country code. (Try it out: FR)",
+      description: "ISO2 country code. (Try it out: FR)",
     },
   ],
 };

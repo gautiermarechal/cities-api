@@ -3,6 +3,7 @@ const cors = require("cors");
 const { rateLimiterUsingThirdParty } = require("./middlewares/rateLimiter");
 const swaggerUi = require("swagger-ui-express");
 const { swaggerDocument } = require("./swagger");
+const cookieParser = require("cookie-parser");
 //DB imports----------------------------------------
 const { resolve } = require("path");
 require("dotenv").config({ path: resolve(__dirname, ".env") });
@@ -16,6 +17,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(rateLimiterUsingThirdParty);
+app.use(cookieParser());
 
 app.use(express.json());
 
@@ -34,6 +36,5 @@ app.get("/", (req, res) => {
 app.use("/", rootRouter);
 
 module.exports = {
-  path: "/cities",
   handler: app,
 };
